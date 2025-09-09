@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jack's Portfolio</title>
+    <style>
+        /* Mini Terminal Minimize Animation */
+        #mini-terminal.minimized {
+            animation: minimize-terminal 0.5s cubic-bezier(0.68,-0.55,0.27,1.55) forwards;
+        }
+        @keyframes minimize-terminal {
+            0% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+                filter: none;
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0.7) translateY(60px);
+                filter: blur(4px) brightness(1.5);
+            }
+        }
+        #open-terminal-btn {
+            display: none;
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            z-index: 1001;
+            background: #181818;
+            color: #fffa00;
+            border: 4px solid #fff;
+            box-shadow: 0 0 0 4px #111, 0 0 0 8px #fff;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 1em;
+            padding: 12px 22px;
+            cursor: pointer;
+            border-radius: 0;
+            transition: background 0.2s, color 0.2s;
+        }
+        #open-terminal-btn:hover {
+            background: #fffa00;
+            color: #181818;
+        }
+        /* Mini Terminal Pop-up Animation */
+        #mini-terminal {
+            animation: popup-terminal 0.7s cubic-bezier(0.68,-0.55,0.27,1.55);
+        }
+        @keyframes popup-terminal {
+            0% {
+                opacity: 0;
+                transform: scale(0.7) translateY(60px);
+                filter: blur(4px) brightness(1.5);
+            }
+            60% {
+                opacity: 1;
+                transform: scale(1.05) translateY(-8px);
+                filter: blur(0.5px) brightness(1.1);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+                filter: none;
+            }
+        }
+        ::selection {
+            background: #fff;
+            color: #111;
+        }
+        ::-moz-selection {
+            background: #fff;
+            color: #111;
+        }
+        body {
+            background: #111;
+            color: #fff;
+            font-family: 'Press Start 2P', monospace, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            image-rendering: pixelated;
+            overflow-x: hidden;
+        }
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            background: #181818;
+            border: 8px solid #fff;
+            box-shadow: 0 0 0 8px #111, 0 0 0 16px #fff;
+            padding: 32px;
+            position: relative;
+            animation: pixel-border-glow 2s infinite alternate;
+            filter: contrast(1.2) grayscale(0.2);
+        }
+        @keyframes pixel-border-glow {
+            0% {
+                box-shadow: 0 0 0 8px #111, 0 0 0 16px #fff;
+            }
+            100% {
+                box-shadow: 0 0 16px 8px #fff, 0 0 0 16px #fff;
+            }
+        }
+        @keyframes pixel-border-glow {
+            0% {
+                box-shadow: 0 0 0 8px #fff, 0 0 0 16px #111;
+            }
+            100% {
+                box-shadow: 0 0 16px 8px #111, 0 0 0 16px #111;
+            }
+        }
+        h1, h2 {
+            font-family: 'Press Start 2P', monospace, Arial, sans-serif;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 0;
+            text-shadow: 2px 2px 0 #fff, 4px 4px 0 #222;
+        }
+        h1 {
+            font-size: 2.2rem;
+            text-align: center;
+            margin-bottom: 32px;
+            filter: contrast(1.5);
+        }
+        h2 {
+            font-size: 1.2rem;
+            border-bottom: 2px solid #fff;
+            padding-bottom: 8px;
+            margin-bottom: 16px;
+        }
+        .section {
+            margin-bottom: 80px;
+            margin-top: 40px;
+            padding-top: 32px;
+            padding-bottom: 32px;
+            opacity: 0;
+            transform: translateY(40px) scale(0.98);
+            animation: pixel-fade-in 1s forwards cubic-bezier(0.77,0,0.175,1);
+            border-radius: 0;
+            image-rendering: pixelated;
+            transition: box-shadow 0.2s, background 0.2s, transform 0.2s;
+        }
+        .section:last-child {
+            margin-bottom: 0;
+        }
+        .section:hover {
+            box-shadow: 0 0 0 6px #00ffe7, 0 0 0 12px #fffa00;
+            background: #181818;
+            transform: scale(1.02) translateY(-2px);
+            z-index: 2;
+        }
+    .section-about { animation-delay: 0.2s; }
+    .section-skills { animation-delay: 0.5s; }
+    .section-projects { animation-delay: 0.8s; }
+    .section-contact { animation-delay: 1.1s; }
+
+        @keyframes pixel-fade-in {
+            0% {
+                opacity: 0;
+                transform: translateY(40px) scale(0.98);
+                filter: blur(2px) contrast(0.5);
+            }
+            80% {
+                opacity: 1;
+                transform: translateY(-4px) scale(1.01);
+                filter: blur(0.5px) contrast(1.2);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: none;
+            }
+        }
+        ul {
+            list-style: square inside;
+            padding-left: 0;
+            font-size: 0.95em;
+            letter-spacing: 1px;
+            filter: contrast(1.2);
+        }
+        .pixel-border {
+            border: 4px solid #fff;
+            padding: 16px;
+            margin-bottom: 16px;
+            background: #222;
+            box-shadow: 0 0 0 4px #111, 0 0 0 8px #fff;
+            image-rendering: pixelated;
+        }
+        a {
+            color: #fff;
+            text-decoration: underline;
+            background: #111;
+            border: 2px solid #fff;
+            padding: 2px 6px;
+            border-radius: 0;
+            font-size: 0.9em;
+            box-shadow: 2px 2px 0 #fff;
+            transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+        }
+        a:hover {
+            background: #fff;
+            color: #111;
+            box-shadow: 2px 2px 0 #111;
+        }
+    /* Pixel font from Google Fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+    /* Pixel sparkle animation */
+    .pixel-sparkle {
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        background: #fff;
+        box-shadow: 0 0 2px 2px #fff, 0 0 8px 2px #fff;
+        opacity: 0.8;
+        animation: sparkle 1.2s infinite;
+        image-rendering: pixelated;
+        z-index: 10;
+    }
+    @keyframes sparkle {
+        0%, 100% { opacity: 0.8; transform: scale(1) rotate(0deg); }
+        50% { opacity: 0.2; transform: scale(1.6) rotate(90deg); }
+    }
+    </style>
+</head>
+<body>
+    <button id="open-terminal-btn">Open Bob?</button>
+    <!-- Mini Terminal -->
+    <div id="mini-terminal" style="position:fixed;bottom:32px;right:32px;width:340px;max-width:95vw;background:#181818;border:4px solid #fff;box-shadow:0 0 0 4px #111,0 0 0 8px #fff;z-index:1000;font-family:'Press Start 2P',monospace;color:#fff;padding:0;display:flex;flex-direction:column;">
+        <div style="background:#111;padding:8px 12px;font-size:1em;border-bottom:2px solid #fff;display:flex;align-items:center;justify-content:space-between;">
+            <span>Bob the pixel AI</span>
+            <button id="close-terminal" style="background:none;border:none;color:#fff;font-size:1.2em;cursor:pointer;">×</button>
+        </div>
+        <div id="terminal-output" style="height:180px;overflow-y:auto;padding:12px;font-size:0.85em;line-height:1.5;background:#222;"></div>
+        <form id="terminal-form" style="display:flex;border-top:2px solid #fff;">
+            <span style="background:#111;color:#fffa00;padding:8px 6px 8px 10px;">&gt;</span>
+            <input id="terminal-input" type="text" autocomplete="off" style="flex:1;background:#111;border:none;color:#fff;padding:8px 6px;font-family:'Press Start 2P',monospace;font-size:0.95em;outline:none;" placeholder="Ask me anything..." />
+        </form>
+    </div>
+    <canvas id="starfield" style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:0;pointer-events:none;"></canvas>
+    <div class="container" style="position:relative;z-index:1;">
+        <div id="sparkle-container"></div>
+        <h1>Jack's Portfolio</h1>
+        <div style="text-align:center; margin-bottom:32px;">
+            <a id="resume-btn" href="resume.pdf" 
+            target="_blank" rel="noopener" class="pixel-badge" 
+            style="display:inline-block;background:#fffa00;
+            color:#111;border:2px solid #fff;padding:12px 28px;
+            font-size:1.1em;font-family:'Press Start 2P',monospace;
+            box-shadow:2px 2px 0 #111;image-rendering:pixelated;
+            text-decoration:none;cursor:pointer;transition:background 0.2s, 
+            color 0.2s, box-shadow 0.2s;">View Resume</a>
+        </div>
+        <div class="section section-about pixel-border" id="about">
+            <h2>About me</h2>
+            <p id="typewriter-text"><!-- Typewriter text will appear here --></p>
+        </div>
+    <div class="section section-projects pixel-border" id="projects">
+        <h2>Current Projects</h2>
+        <div class="projects-list" style="display: flex; flex-direction: column; gap: 28px;">
+            <div style="display: flex; justify-content: flex-end;">
+                <div style="max-width: 90%; text-align: right;">
+                    <a href="#" style="color:#fffa00;">Emotional aware chatbot</a> 
+                    <p>Builds a chatbot that understands user emotions and replies kindly. I’ll use NLP to read messages and generate empathetic responses.</p>
+                </div>
+            </div>
+            <div style="display: flex; justify-content: flex-start;">
+                <div style="max-width: 90%; text-align: left;">
+                    <a href="#" style="color:#00ffe7;">Fake review detector</a> 
+                    <p>Creates a tool to spot fake or spam reviews. I’ll train a model on review data to classify them as real or fake.</p>
+                </div>
+            </div>
+            <div style="display: flex; justify-content: flex-end;">
+                <div style="max-width: 90%; text-align: right;">
+                    <a href="#" style="color:#ff00a2;">Personalized learning assistant</a>
+                    <P>Makes a helper that suggests learning content based on how someone learns best. I’ll track user preferences and use recommendation algorithms.</P>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section section-skills pixel-border" id="skills">
+        <h2>Skills</h2>
+        <div class="skills-badges" style="display: flex; flex-wrap: wrap; gap: 18px; justify-content: center;">
+            <div class="pixel-badge" style="background:#306998; color:#fff; border:2px solid #fff; padding:10px 18px; font-size:1em; font-family:'Press Start 2P', monospace; box-shadow:2px 2px 0 #111; image-rendering:pixelated;">Python</div>
+            <div class="pixel-badge" style="background:#e44d26; color:#fff; border:2px solid #fff; padding:10px 18px; font-size:1em; font-family:'Press Start 2P', monospace; box-shadow:2px 2px 0 #111; image-rendering:pixelated;">HTML</div>
+            <div class="pixel-badge" style="background:#264de4; color:#fff; border:2px solid #fff; padding:10px 18px; font-size:1em; font-family:'Press Start 2P', monospace; box-shadow:2px 2px 0 #111; image-rendering:pixelated;">CSS</div>
+            <div class="pixel-badge" style="background:#6e5494; color:#fff; border:2px solid #fff; padding:10px 18px; font-size:1em; font-family:'Press Start 2P', monospace; box-shadow:2px 2px 0 #111; image-rendering:pixelated;">Assembly</div>
+            <div class="pixel-badge" style="background:#5382a1; color:#fff; border:2px solid #fff; padding:10px 18px; font-size:1em; font-family:'Press Start 2P', monospace; box-shadow:2px 2px 0 #111; image-rendering:pixelated;">Java</div>
+        </div>
+    </div>
+    <div class="section section-contact pixel-border" id="contact">
+        <h2>Contact me</h2>
+        <div style="display: flex; flex-wrap: wrap; gap: 32px; justify-content: center; align-items: flex-start;">
+            <ul style="list-style: none; padding-left: 0; margin: 0; min-width: 180px;">
+                <li style="margin-bottom: 18px;"><a href="https://www.linkedin.com/in/jacktran04" target="_blank" style="color:#00ffe7;">LinkedIn</a></li>
+                <li><a href="https://github.com/jacktran5665" target="_blank" style="color:#fff;">GitHub</a></li>
+            </ul>
+            <ul style="list-style: none; padding-left: 0; margin: 0; min-width: 180px;">
+                <li style="margin-bottom: 18px;"><a href="https://www.instagram.com/lxz_rus1412" target="_blank" style="color:#ff00a2;">Instagram</a></li>
+                <li><a href="mailto:ntran.dec14@gmail.com" style="color:#fffa00;">Email</a></li>
+            </ul>
+        </div>
+    </div>
+    </div>
+    <script>
+    // Mini Terminal AI
+    const miniTerminal = document.getElementById('mini-terminal');
+    const terminalForm = document.getElementById('terminal-form');
+    const terminalInput = document.getElementById('terminal-input');
+    const terminalOutput = document.getElementById('terminal-output');
+    const closeTerminal = document.getElementById('close-terminal');
+    closeTerminal.onclick = () => {
+        miniTerminal.classList.add('minimized');
+        setTimeout(() => {
+            miniTerminal.style.display = 'none';
+            document.getElementById('open-terminal-btn').style.display = 'block';
+            miniTerminal.classList.remove('minimized');
+        }, 480);
+    };
+    document.getElementById('open-terminal-btn').onclick = () => {
+        miniTerminal.style.display = 'flex';
+        document.getElementById('open-terminal-btn').style.display = 'none';
+    };
+    function printToTerminal(text, isUser=false) {
+        const div = document.createElement('div');
+        div.style.margin = '4px 0';
+        div.style.whiteSpace = 'pre-wrap';
+        div.innerHTML = (isUser ? '<span style="color:#00ffe7;">You:</span> ' : '<span style="color:#fffa00;">AI:</span> ') + text;
+        terminalOutput.appendChild(div);
+        terminalOutput.scrollTop = terminalOutput.scrollHeight;
+    }
+    function aiResponse(input) {
+        input = input.trim().toLowerCase();
+        if (!input) return "Type something!";
+        if (input.includes('hello') || input.includes('hi')) return "Helloooo there! My owner is a bit busy right now, but I'm here to help! How may I assist you? :>";
+        if (input.includes('name')) return "I'm Bob your pixel AI terminal created to assist you! ^^";
+        if (input.includes('skills')) return "Jack is skilled in Python, HTML, CSS, Assembly, Java, and more!";
+        if (input.includes('project')) return "Check out his project section above! ";
+        if (input.includes('contact')) return "His contact info is in the Contact section. Check out below~";
+        if (input.includes('joke')) return "Error, I wasn't programmed with a sense of humor";
+        if (input.includes('help')) return "Try typing hello/name/skills/project/contact/help/joke(don't)";
+        if (input.includes('ai')) return "hey I have a name! I'm Bob!";
+        return "Sorry, I don't understand. Try 'help' for ideas.";
+    }
+    terminalForm.onsubmit = function(e) {
+        e.preventDefault();
+        const userInput = terminalInput.value;
+        printToTerminal(userInput, true);
+        setTimeout(() => printToTerminal(aiResponse(userInput)), 400);
+        terminalInput.value = '';
+    };
+    // Welcome message
+    printToTerminal("Hello friend! I'm Bob the Pixel AI! How can I assist ya? :>");
+    // Typewriter effect for About section
+    const typewriterText = "Hello there! I’m a Georgia Tech CS student passionate about building intelligent, human-centered AI that genuinely improves lives. I work with Python, Java, and ML to create technology that’s both smart and practical. When I’m not coding, I’m usually gaming, hanging out with friends, or exploring new tech trends. Feel free to check out my projects and get in touch!";
+    const typewriterElem = document.getElementById('typewriter-text');
+    let typeIdx = 0;
+    let isTag = false;
+    function typeWriter() {
+        if (typeIdx < typewriterText.length) {
+            let char = typewriterText[typeIdx];
+            typewriterElem.innerHTML += char;
+            if (char === '<') isTag = true;
+            if (char === '>') isTag = false;
+            typeIdx++;
+            setTimeout(typeWriter, isTag ? 0 : 28);
+        }
+    }
+    typeWriter();
+
+    // Starfield background
+    const canvas = document.getElementById('starfield');
+    const ctx = canvas.getContext('2d');
+    let w = window.innerWidth;
+    let h = window.innerHeight;
+    function resizeStarfield() {
+        w = window.innerWidth;
+        h = window.innerHeight;
+        canvas.width = w;
+        canvas.height = h;
+    }
+    resizeStarfield();
+    window.addEventListener('resize', resizeStarfield);
+    // Star properties
+    const STAR_COUNT = 120;
+    const stars = [];
+    for (let i = 0; i < STAR_COUNT; i++) {
+        stars.push({
+            x: Math.random() * w,
+            y: Math.random() * h,
+            r: Math.random() * 1.2 + 0.6,
+            twinkle: Math.random() * Math.PI * 2,
+            speed: Math.random() * 0.2 + 0.05
+        });
+    }
+    function drawStars() {
+        ctx.clearRect(0, 0, w, h);
+        for (const star of stars) {
+            const tw = 0.5 + 0.5 * Math.sin(Date.now() * 0.002 * star.speed + star.twinkle);
+            ctx.save();
+            ctx.globalAlpha = 0.7 * tw;
+            ctx.beginPath();
+            ctx.arc(star.x, star.y, star.r * (1.1 + 0.3 * tw), 0, 2 * Math.PI);
+            ctx.fillStyle = '#fff';
+            ctx.shadowColor = '#fff';
+            ctx.shadowBlur = 8 * tw;
+            ctx.fill();
+            ctx.restore();
+        }
+    }
+    function animateStars() {
+        drawStars();
+        requestAnimationFrame(animateStars);
+    }
+    animateStars();
+
+    // Pixel sparkle effect
+    const sparkleColors = ['#fff', '#fffa00', '#00ffe7', '#ff00a2'];
+    function randomInt(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+    function createSparkle() {
+        const sparkle = document.createElement('div');
+        sparkle.className = 'pixel-sparkle';
+        sparkle.style.left = randomInt(0, 98) + '%';
+        sparkle.style.top = randomInt(0, 98) + '%';
+        sparkle.style.background = sparkleColors[randomInt(0, sparkleColors.length-1)];
+        sparkle.style.animationDuration = (0.8 + Math.random()*1.2) + 's';
+        document.getElementById('sparkle-container').appendChild(sparkle);
+        setTimeout(() => sparkle.remove(), 1400);
+    }
+    setInterval(createSparkle, 300);
+    </script>
+</body>
+</html>
