@@ -1,0 +1,128 @@
+#mini-terminal {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  width: 340px;
+  max-width: 95vw;
+  background: #181818;
+  border: 4px solid #fff;
+  box-shadow: 0 0 0 4px #111, 0 0 0 8px #fff;
+  z-index: 1000;
+  font-family: 'Press Start 2P', monospace;
+  color: #fff;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  animation: popup-terminal 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+#mini-terminal.minimized {
+  animation: minimize-terminal 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+}
+
+@keyframes minimize-terminal {
+  0% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: none;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.7) translateY(60px);
+    filter: blur(4px) brightness(1.5);
+  }
+}
+
+@keyframes popup-terminal {
+  0% {
+    opacity: 0;
+    transform: scale(0.7) translateY(60px);
+    filter: blur(4px) brightness(1.5);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.05) translateY(-8px);
+    filter: blur(0.5px) brightness(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: none;
+  }
+}
+
+.terminal-header {
+  background: #111;
+  padding: 8px 12px;
+  font-size: 1em;
+  border-bottom: 2px solid #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#close-terminal {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.2em;
+  cursor: pointer;
+}
+
+#terminal-output {
+  height: 180px;
+  overflow-y: auto;
+  padding: 12px;
+  font-size: 0.85em;
+  line-height: 1.5;
+  background: #222;
+}
+
+#terminal-form {
+  display: flex;
+  border-top: 2px solid #fff;
+}
+
+.terminal-prompt {
+  background: #111;
+  color: #fffa00;
+  padding: 8px 6px 8px 10px;
+}
+
+#terminal-input {
+  flex: 1;
+  background: #111;
+  border: none;
+  color: #fff;
+  padding: 8px 6px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.95em;
+  outline: none;
+}
+
+#terminal-input::placeholder {
+  color: #666;
+}
+
+#open-terminal-btn {
+  display: block;
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  z-index: 1001;
+  background: #181818;
+  color: #fffa00;
+  border: 4px solid #fff;
+  box-shadow: 0 0 0 4px #111, 0 0 0 8px #fff;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 1em;
+  padding: 12px 22px;
+  cursor: pointer;
+  border-radius: 0;
+  transition: background 0.2s, color 0.2s;
+}
+
+#open-terminal-btn:hover {
+  background: #fffa00;
+  color: #181818;
+}
