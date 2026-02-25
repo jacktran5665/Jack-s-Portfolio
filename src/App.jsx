@@ -256,11 +256,12 @@ export default function App() {
             <div className="project-left">
               <div className="project-content left">
                 <a href="#" className="project-cyan">
-                  Fake review detector
+                  Perlith - Contour Planet Generator
                 </a>
                 <p>
-                  Creates a tool to spot fake or spam reviews. I’ll train a model on review data to classify them as real or fake.
-                </p>
+                  Created a procedural planet generator that uses contour generation algorithms to create unique, cartoon-style planets. 
+                  I learned about procedural generation, noise functions, and creative coding techniques.
+                  </p>
               </div>
             </div>
             <div className="project-right">
