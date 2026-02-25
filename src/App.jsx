@@ -255,7 +255,7 @@ export default function App() {
             </div>
             <div className="project-left">
               <div className="project-content left">
-                <a href="#" className="project-cyan">
+                <a href="https://perlithgenerator.up.railway.app/" target="_blank" rel="noopener noreferrer" className="project-cyan">
                   Perlith - Contour Planet Generator
                 </a>
                 <p>
